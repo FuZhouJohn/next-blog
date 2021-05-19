@@ -8,18 +8,25 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/marked": "^2.0.2",
+    "@types/ua-parser-js": "^0.7.36",
     "axios": "^0.21.1",
     "gray-matter": "^4.0.3",
+    "highlight.js": "^10.7.2",
+    "marked": "^2.0.3",
     "next": "10.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
+    "@styled-jsx/plugin-sass": "^3.0.0",
     "@types/axios": "^0.14.0",
     "@types/node": "^15.3.0",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.5",
+    "sass": "^1.32.13",
     "typescript": "^4.2.4"
   }
 }
