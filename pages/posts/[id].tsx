@@ -1,8 +1,8 @@
 import {GetStaticPaths, GetStaticProps, NextPage} from 'next';
-import {getPost, getPostIds,} from '../../lib/posts';
+import {getPost, getPostIds,} from 'lib/posts';
 import marked from 'marked';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/darcula.css';
+import 'highlight.js/styles/github.css';
 import {ParsedUrlQuery} from 'querystring';
 
 type Props = {
@@ -25,12 +25,19 @@ const Post: NextPage<Props> = (props) => {
             <article id="preview" dangerouslySetInnerHTML={{__html: markdown}}>
             </article>
             <style jsx>{`
-              #preview {
-                padding: 0 10px;
-              }
-
               h1, p {
                 padding: 0 10px;
+              }
+            `}</style>
+            <style global jsx>{`
+              #preview {
+                padding: 0 10px;
+
+                pre {
+                  background-color: rgb(246, 248, 250);
+                  padding: 16px;
+                  border-radius: 6px;
+                }
               }
             `}</style>
         </>
@@ -50,7 +57,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface Params extends ParsedUrlQuery {
     id: string
 }
-
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
     const id = context.params?.id;
     const post = id ? await getPost(id) : {};
