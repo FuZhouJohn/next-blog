@@ -1,10 +1,20 @@
 {
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
+  ],
   "presets": [
     [
       "next/babel",
       {
         "styled-jsx": {
-          "plugins": ["@styled-jsx/plugin-sass"]
+          "plugins": [
+            "@styled-jsx/plugin-sass"
+          ]
         }
       }
     ]
