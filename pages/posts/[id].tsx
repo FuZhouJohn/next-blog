@@ -49,7 +49,7 @@ export default Post;
 export const getStaticPaths: GetStaticPaths = async () => {
     const ids = await getPostIds();
     return {
-        paths: ids.map(id => ({params: {id}})),
+        paths: ids.map((id: string) => ({params: {id}})),
         fallback: false
     };
 };
@@ -58,7 +58,7 @@ interface Params extends ParsedUrlQuery {
     id: string
 }
 export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
-    const id = context.params?.id;
+    const id = context.params.id;
     const post = id ? await getPost(id) : {};
     return {
         props: {
