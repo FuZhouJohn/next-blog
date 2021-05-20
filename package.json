@@ -6,11 +6,12 @@
     "dev": "concurrently \"next dev\" \"babel -w --delete-dir-on-start ./src --out-dir dist --extensions .ts,.tsx\"",
     "build": "next build",
     "start": "next start",
-    "typeorm:build": "babel -w ./src --out-dir dist --extensions .ts,.tsx",
+    "typeorm:build": "babel --delete-dir-on-start ./src --out-dir dist --extensions .ts,.tsx",
     "migration:create": "typeorm migration:create",
     "migration:run": "typeorm migration:run",
     "migration:revert": "typeorm migration:revert",
-    "entity:create": "typeorm entity:create"
+    "entity:create": "typeorm entity:create",
+    "seed": "node dist/seed.js"
   },
   "dependencies": {
     "@types/marked": "^2.0.2",
