@@ -7,7 +7,7 @@ export class CreatePosts1621492454249 implements MigrationInterface {
             name: 'posts',
             columns: [
                 {name: 'id', type: 'int', isPrimary: true, isGenerated: true, generationStrategy: 'increment'},
-                {name: 'user_id', type: 'int'},
+                {name: 'author_id', type: 'int'},
                 {name: 'title', type: 'varchar'},
                 {name: 'content', type: 'text'}
             ]

@@ -26,7 +26,7 @@ CREATE DATABASE blog_development ENCODING 'UTF8' LC_COLLATE 'en_US.utf8' LC_CTYP
 yarn typeorm:build
 
 # 新建数据表
-yarn migration:run
+yarn m:run
 
 # 填充初始数据
 yarn seed
