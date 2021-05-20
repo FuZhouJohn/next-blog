@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"babel -w ./src --out-dir dist --extensions .ts,.tsx\"",
+    "dev": "concurrently \"next dev\" \"babel -w --delete-dir-on-start ./src --out-dir dist --extensions .ts,.tsx\"",
     "build": "next build",
     "start": "next start",
     "typeorm:build": "babel -w ./src --out-dir dist --extensions .ts,.tsx",
+    "migration:create": "typeorm migration:create",
     "migration:run": "typeorm migration:run",
-    "migration:revert": "typeorm migration:revert"
+    "migration:revert": "typeorm migration:revert",
+    "entity:create": "typeorm entity:create"
   },
   "dependencies": {
     "@types/marked": "^2.0.2",
