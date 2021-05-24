@@ -8,7 +8,6 @@ const Users: NextApiHandler = async (req, res) => {
     const {username, password, passwordConfirmation} = req.body;
     const user = new User();
     user.username = username.trim()
-    user.passwordDigest = md5(password)
     user.password = password
     user.passwordConfirmation = passwordConfirmation
 
