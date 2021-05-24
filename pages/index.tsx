@@ -1,30 +1,29 @@
 import {GetServerSideProps, NextPage} from 'next';
 import UAParser, {IBrowser, IOS} from 'ua-parser-js';
 import {getDatabaseConnection} from '../lib/getDatabaseConnection';
+import {Post} from 'src/entity/Post';
 
 type Props = {
-    agent: { browser: IBrowser, os: IOS }
+    posts:Post[]
 }
 const Index: NextPage<Props> = (props) => {
+    const {posts} = props
     return (
-        <>
-            <div>
-                当前浏览器 {props.agent.browser.name} {props.agent.browser.version}
-            </div>
-            <div>
-                当前浏览器 {props.agent.os.name} {props.agent.os.version}
-            </div>
-        </>
+        <div>
+            {posts.map(post=><div key={post.id}>{post.title}</div>)}
+        </div>
     );
 };
 export default Index;
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const connection = await getDatabaseConnection()
-    const ua = context.req.headers['user-agent'];
-    const result = new UAParser(ua).getResult();
+    const connection = await getDatabaseConnection();
+    const posts = await connection.manager.find(Post);
     return {
-        props: {agent: {browser: result.browser, os: result.os}}
+        props: {
+            posts: JSON.parse(JSON.stringify(posts))
+        },
+
     };
 };
