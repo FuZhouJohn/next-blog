@@ -1,6 +1,8 @@
 import {GetServerSideProps, NextPage} from 'next';
 import UAParser, {IBrowser, IOS} from 'ua-parser-js';
+import {getDatabaseConnection} from '../lib/getDatabaseConnection';
 
+console.log('执行 index.tsx')
 type Props = {
     agent: { browser: IBrowser, os: IOS }
 }
@@ -20,6 +22,8 @@ export default Index;
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    console.log('connection')
+    const connection = await getDatabaseConnection()
     const ua = context.req.headers['user-agent'];
     const result = new UAParser(ua).getResult();
     return {
