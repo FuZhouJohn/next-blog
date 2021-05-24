@@ -37,7 +37,7 @@ const SignUp: NextPage = () => {
                         })}/>
                     </label>
                     {errors.username?.length > 0 && <div>
-                        {errors.username.join(',')}
+                        {errors.username.join('，')}
                     </div>}
                 </div>
                 <div>
@@ -48,7 +48,7 @@ const SignUp: NextPage = () => {
                         })}/>
                     </label>
                     {errors.password?.length > 0 && <div>
-                        {errors.password.join(',')}
+                        {errors.password.join('，')}
                     </div>}
                 </div>
                 <div>
@@ -59,7 +59,7 @@ const SignUp: NextPage = () => {
                         })}/>
                     </label>
                     {errors.passwordConfirmation?.length > 0 && <div>
-                        {errors.passwordConfirmation.join(',')}
+                        {errors.passwordConfirmation.join('，')}
                     </div>}
                 </div>
                 <div>
