@@ -47,6 +47,7 @@ const PostShow: NextPage<Props> = (props) => {
 export default PostShow;
 
 export const getServerSideProps: GetServerSideProps<any, { id: string }> = async (context) => {
+    console.log(context.params.id);
     const connection = await getDatabaseConnection();
     const post = await connection.manager.findOne(Post, context.params.id);
     return {
