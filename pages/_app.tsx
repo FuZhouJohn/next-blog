@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import type {AppProps /*, AppContext */} from 'next/app';
-import 'styles/globals.css'
+import 'styles/globals.scss'
 import React from 'react';
 
 function MyApp({Component, pageProps}:AppProps) {

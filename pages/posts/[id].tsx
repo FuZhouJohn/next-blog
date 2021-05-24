@@ -1,15 +1,15 @@
-import {GetStaticPaths, GetStaticProps, NextPage} from 'next';
-import {getPost, getPostIds,} from 'lib/posts';
+import {GetServerSideProps, NextPage} from 'next';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-import {ParsedUrlQuery} from 'querystring';
+import {getDatabaseConnection} from '../../lib/getDatabaseConnection';
+import {Post} from 'src/entity/Post';
 
 type Props = {
     post: Post
 }
 
-const Post: NextPage<Props> = (props) => {
+const PostShow: NextPage<Props> = (props) => {
     const {post} = props;
     marked.setOptions({
         highlight(code, lang) {
@@ -20,7 +20,7 @@ const Post: NextPage<Props> = (props) => {
     return (
         <>
             <h1>{post.title}</h1>
-            <p>日期：{post.date}</p>
+            <p>日期：{post.createdAt}</p>
             <hr/>
             <article id="preview" dangerouslySetInnerHTML={{__html: markdown}}>
             </article>
@@ -44,25 +44,15 @@ const Post: NextPage<Props> = (props) => {
     );
 };
 
-export default Post;
+export default PostShow;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const ids = await getPostIds();
-    return {
-        paths: ids.map((id: string) => ({params: {id}})),
-        fallback: false
-    };
-};
-
-interface Params extends ParsedUrlQuery {
-    id: string
-}
-export const getStaticProps: GetStaticProps<Props, Params> = async (context) => {
-    const id = context.params.id;
-    const post = id ? await getPost(id) : {};
+export const getServerSideProps: GetServerSideProps<any, { id: string }> = async (context) => {
+    const connection = await getDatabaseConnection();
+    const post = await connection.manager.findOne(Post, context.params.id);
     return {
         props: {
-            post
-        }
+            post: JSON.parse(JSON.stringify(post))
+        },
+
     };
 };
