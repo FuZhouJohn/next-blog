@@ -6,6 +6,7 @@ const SignUp: NextPage = () => {
     const onSubmit = (formData: typeof initFormData) => {
         axios.post('/api/v1/users', formData).then((response) => {
             window.alert('注册成功');
+            window.location.href = '/sign_in'
         }, (error) => {
             if (error.response) {
                 const response: AxiosResponse = error.response;
