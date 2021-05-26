@@ -59,7 +59,6 @@ const SignIn: NextPage<{ user: User }> = (props) => {
         </>
     );
 };
-;
 
 export default SignIn;
 
