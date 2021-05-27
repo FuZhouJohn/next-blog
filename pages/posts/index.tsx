@@ -2,8 +2,12 @@ import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { Post } from "src/entity/Post";
+import qs from "querystring";
 type Props = {
   posts: Post[];
+  count: number;
+  perPage: number;
+  page: number;
 };
 
 const PostsIndex: NextPage<Props> = (props) => {
@@ -18,17 +22,39 @@ const PostsIndex: NextPage<Props> = (props) => {
           </Link>
         </div>
       ))}
+      <footer>
+        共 {props.count} 篇文章，当前是第 {props.page} 页
+        <Link href={`?page=${props.page - 1}`}>
+          <a>上一页</a>
+        </Link>
+        |
+        <Link href={`?page=${props.page + 1}`}>
+          <a>下一页</a>
+        </Link>
+      </footer>
     </div>
   );
 };
 export default PostsIndex;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const index = context.req.url.indexOf("?");
+  const search = context.req.url.substr(index + 1);
+  const query = qs.parse(search);
+  const page = (query.page && parseInt(query.page.toString())) || 1;
+  const perPage = 2;
+
   const connection = await getDatabaseConnection();
-  const posts = await connection.manager.find(Post);
+  const [posts, count] = await connection.manager.findAndCount(Post, {
+    skip: (page - 1) * perPage,
+    take: perPage,
+  });
   return {
     props: {
       posts: JSON.parse(JSON.stringify(posts)),
+      count,
+      perPage,
+      page,
     },
   };
 };
