@@ -2817,6 +2817,11 @@ postgres-interval@^1.1.0:
   dependencies:
     xtend "^4.0.0"
 
+prettier@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.nlark.com/prettier/download/prettier-2.3.0.tgz?cache=0&sync_timestamp=1620594183343&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
+  integrity sha1-tqW/EoQCauZA8X9/9WWKdWf8DRg=
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.npm.taobao.org/process-nextick-args/download/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
