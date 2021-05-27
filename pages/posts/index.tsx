@@ -8,6 +8,7 @@ type Props = {
   count: number;
   perPage: number;
   page: number;
+  totalPage: number;
 };
 
 const PostsIndex: NextPage<Props> = (props) => {
@@ -23,14 +24,17 @@ const PostsIndex: NextPage<Props> = (props) => {
         </div>
       ))}
       <footer>
-        共 {props.count} 篇文章，当前是第 {props.page} 页
-        <Link href={`?page=${props.page - 1}`}>
-          <a>上一页</a>
-        </Link>
-        |
-        <Link href={`?page=${props.page + 1}`}>
-          <a>下一页</a>
-        </Link>
+        共 {props.count} 篇文章，当前是 {props.page}/{props.totalPage} 页
+        {props.page !== 1 && (
+          <Link href={`?page=${props.page - 1}`}>
+            <a>上一页</a>
+          </Link>
+        )}
+        {props.page < props.totalPage && (
+          <Link href={`?page=${props.page + 1}`}>
+            <a>下一页</a>
+          </Link>
+        )}
       </footer>
     </div>
   );
@@ -38,10 +42,12 @@ const PostsIndex: NextPage<Props> = (props) => {
 export default PostsIndex;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  // 获取页码
   const index = context.req.url.indexOf("?");
   const search = context.req.url.substr(index + 1);
   const query = qs.parse(search);
   const page = (query.page && parseInt(query.page.toString())) || 1;
+
   const perPage = 2;
 
   const connection = await getDatabaseConnection();
@@ -49,12 +55,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     skip: (page - 1) * perPage,
     take: perPage,
   });
+
   return {
     props: {
       posts: JSON.parse(JSON.stringify(posts)),
       count,
       perPage,
       page,
+      totalPage: Math.ceil(count / perPage),
     },
   };
 };
