@@ -21,9 +21,8 @@ const SignIn: NextPage<{ user: User }> = (props) => {
       request: (formData) => axios.post("/api/v1/sessions", formData),
       success: () => {
         window.alert("登录成功");
-        console.log(window.location.search);
-        const parsed = qs.parse("?returnTo=%2Fposts%2Fnew");
-        console.log(parsed);
+        const query = qs.parse(window.location.search);
+        window.location.href = query["return_to"].toString();
       },
     },
   });

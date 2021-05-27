@@ -18,6 +18,7 @@ const PostsNew: NextPage = () => {
       request: (formData) => axios.post("/api/v1/posts", formData),
       success: () => {
         window.alert("提交成功");
+        window.location.href = "/posts";
       },
     },
   });
