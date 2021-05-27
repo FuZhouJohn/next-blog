@@ -1,34 +1,36 @@
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    ManyToOne, OneToMany,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn
-} from 'typeorm';
-import {User} from './User';
-import {Comment} from './Comment';
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { User } from "./User";
+import { Comment } from "./Comment";
+import posts from "../../pages/api/v1/posts";
 
-@Entity('posts')
+@Entity("posts")
 export class Post {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
-    @ManyToOne(() => User, user => user.posts)
-    author: User;
+  @ManyToOne("User", "posts")
+  author: User;
 
-    @Column('varchar')
-    title: string;
+  @Column("varchar")
+  title: string;
 
-    @Column('text')
-    content: string;
+  @Column("text")
+  content: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-    @OneToMany(() => Comment, comment => comment.post)
-    comments: Comment[];
+  @OneToMany("Comment", "post")
+  comments: Comment[];
 }

@@ -1,9 +1,21 @@
-import {NextApiHandler} from 'next';
-import {getPosts} from 'lib/posts';
+import { NextApiHandler } from "next";
+import { Post } from "src/entity/Post";
+import { withSession } from "lib/withSession";
+import { getDatabaseConnection } from "lib/getDatabaseConnection";
 
 const Posts: NextApiHandler = async (req, res) => {
-    const posts = await getPosts();
-    res.status(200).json(posts);
+  switch (req.method) {
+    case "POST":
+      const { title, content } = req.body;
+      const post = new Post();
+      post.title = title;
+      post.content = content;
+      post.author = req.session.get("currentUser");
+      const connection = await getDatabaseConnection();
+      await connection.manager.save(post);
+      res.json(post);
+      break;
+  }
 };
 
-export default Posts;
+export default withSession(Posts);
