@@ -14,7 +14,11 @@ type Props = {
 
 const PostsIndex: NextPage<Props> = (props) => {
   const { posts, count, totalPage, page } = props;
-  const { pager } = usePager({ count, totalPage, page });
+  const { pager } = usePager({
+    count,
+    totalPage,
+    page,
+  });
   return (
     <div>
       <h1>文章列表</h1>
