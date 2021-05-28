@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps = withSession(
   async (context: GetServerSidePropsContext) => {
     // @ts-ignore
     const user = context.req.session.get("currentUser");
-    console.log(user);
     return {
       props: {
         user: user || "",
