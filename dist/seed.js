@@ -25,22 +25,22 @@ var _Comment = require("./entity/Comment");
           case 0:
             manager = connection.manager;
             user = new _User.User();
-            user.username = 'zhuang5';
-            user.passwordDigest = 'xxx';
+            user.username = "zhuang5";
+            user.passwordDigest = "xxx";
             _context.next = 6;
             return manager.save(user);
 
           case 6:
             post = new _Post.Post();
-            post.title = '这是一个标题4';
-            post.content = '随便写点啥4';
+            post.title = "这是一个标题4";
+            post.content = "随便写点啥4";
             post.author = user;
             _context.next = 12;
             return manager.save(post);
 
           case 12:
             comment = new _Comment.Comment();
-            comment.content = '键盘侠启动';
+            comment.content = "键盘侠启动";
             comment.post = post;
             comment.user = user;
             _context.next = 18;
@@ -51,6 +51,9 @@ var _Comment = require("./entity/Comment");
             return connection.close();
 
           case 20:
+            console.log("ok");
+
+          case 21:
           case "end":
             return _context.stop();
         }
