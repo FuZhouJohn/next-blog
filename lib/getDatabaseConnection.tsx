@@ -10,8 +10,8 @@ const create = async () => {
   return createConnection({
     ...config,
     port: process.env.NODE_ENV === "production" ? 5433 : config.port,
-    host:
-      process.env.NODE_ENV === "production" ? "192.168.100.40" : config.host,
+    // host:
+    //   process.env.NODE_ENV === "production" ? "192.168.100.40" : config.host,
     entities: [Post, User, Comment],
   });
 };
