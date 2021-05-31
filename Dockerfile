@@ -8,6 +8,6 @@ RUN yarn install --registry https://registry.npm.taobao.org/
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "yarn", "start", "-p", "8080" ]
