@@ -4,8 +4,8 @@ import { withSession } from "lib/withSession";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
 
 const Posts: NextApiHandler = async (req, res) => {
+  const user = req.session.get("currentUser");
   if (req.method === "PATCH") {
-    const user = req.session.get("currentUser");
     if (!user) {
       res.status(401).end();
       return;
@@ -22,6 +22,19 @@ const Posts: NextApiHandler = async (req, res) => {
 
     await connection.manager.save("Post", post);
     res.json(post);
+  } else if (req.method === "DELETE") {
+    const id = req.query.id.toString();
+    if (!user) {
+      res.status(401).end();
+      return;
+    }
+    const connection = await getDatabaseConnection();
+    const { affected } = await connection.manager.delete("Post", id);
+    if (affected >= 0) {
+      res.status(200).end();
+    } else {
+      res.status(400).end();
+    }
   }
 };
 
