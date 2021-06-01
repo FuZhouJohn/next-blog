@@ -20,26 +20,6 @@ type useFormOptions<T> = {
   };
 };
 
-const Form = styled.form`
-  .field {
-    margin: 8px 0;
-  }
-`;
-const Label = styled.label`
-  display: flex;
-  line-height: 32px;
-  .label-text {
-    white-space: nowrap;
-    margin-right: 1em;
-  }
-  input {
-    height: 32px;
-  }
-  > .control {
-    width: 100%;
-  }
-`;
-
 export function useForm<T>(options: useFormOptions<T>) {
   const { initFormData, fields, buttons, submit } = options;
   const [formData, setFormData] = useState(initFormData);
@@ -80,36 +60,61 @@ export function useForm<T>(options: useFormOptions<T>) {
   );
 
   const form = (
-    <Form onSubmit={_onSubmit}>
-      {fields.map((field) => (
-        <div
-          key={field.key.toString()}
-          className={classNames("field", `field-${field.key}`, field.className)}
-        >
-          <Label>
-            <span className="label-text">{field.label}</span>
-            {field.type === "textarea" ? (
-              <textarea
-                className="control"
-                onChange={(e) => onChange(field.key, e.target.value)}
-                value={formData[field.key].toString()}
-              />
-            ) : (
-              <input
-                type={field.type}
-                className="control"
-                value={formData[field.key].toString()}
-                onChange={(e) => onChange(field.key, e.target.value)}
-              />
+    <>
+      <form onSubmit={_onSubmit}>
+        {fields.map((field) => (
+          <div
+            key={field.key.toString()}
+            className={classNames(
+              "field",
+              `field-${field.key}`,
+              field.className
             )}
-          </Label>
-          {errors[field.key]?.length > 0 && (
-            <div>{errors[field.key].join(",")}</div>
-          )}
-        </div>
-      ))}
-      <div>{buttons}</div>
-    </Form>
+          >
+            <label className="label">
+              <span className="label-text">{field.label}</span>
+              {field.type === "textarea" ? (
+                <textarea
+                  className="control"
+                  onChange={(e) => onChange(field.key, e.target.value)}
+                  value={formData[field.key].toString()}
+                />
+              ) : (
+                <input
+                  type={field.type}
+                  className="control"
+                  value={formData[field.key].toString()}
+                  onChange={(e) => onChange(field.key, e.target.value)}
+                />
+              )}
+            </label>
+            {errors[field.key]?.length > 0 && (
+              <div>{errors[field.key].join(",")}</div>
+            )}
+          </div>
+        ))}
+        <div>{buttons}</div>
+      </form>
+      <style jsx>{`
+        .field {
+          margin: 8px 0;
+        }
+        .label {
+          display: flex;
+          line-height: 32px;
+          .label-text {
+            white-space: nowrap;
+            margin-right: 1em;
+          }
+          input {
+            height: 32px;
+          }
+          > .control {
+            width: 100%;
+          }
+        }
+      `}</style>
+    </>
   );
   return {
     form: form,

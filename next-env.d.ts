@@ -8,13 +8,6 @@ declare module "*.png" {
   export default value;
 }
 
-type Post = {
-  id: string;
-  date: string;
-  title: string;
-  content: string;
-};
-
 declare module "next" {
   interface NextApiRequest {
     session: Session;

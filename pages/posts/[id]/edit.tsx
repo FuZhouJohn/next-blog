@@ -1,10 +1,17 @@
-import { NextPage } from "next";
-import axios from "axios";
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { useForm } from "hooks/useForm";
+import axios from "axios";
+import { getDatabaseConnection } from "lib/getDatabaseConnection";
 
-const PostsNew: NextPage = () => {
+type Props = {
+  id: number;
+  post: Post;
+};
+
+const PostsEdit: NextPage<Props> = (props) => {
+  const { post } = props;
   const { form } = useForm({
-    initFormData: { title: "", content: "" },
+    initFormData: { title: post.title, content: post.content },
     fields: [
       { label: "大标题", type: "text", key: "title" },
       { label: "内容", type: "textarea", key: "content" },
@@ -48,4 +55,18 @@ const PostsNew: NextPage = () => {
   );
 };
 
-export default PostsNew;
+export default PostsEdit;
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const { id } = context.params;
+  const connection = await getDatabaseConnection();
+  const post = await connection.manager.findOne("Post", id);
+  return {
+    props: {
+      id: parseInt(id.toString()),
+      post: JSON.parse(JSON.stringify(post)),
+    },
+  };
+};
