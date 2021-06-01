@@ -1,10 +1,13 @@
 import React, { ReactChild, useCallback, useState } from "react";
 import { AxiosResponse } from "axios";
+import classNames from "classnames";
+import styled from "styled-components";
 
 type Field<T> = {
   label: string;
   type: "text" | "password" | "textarea";
   key: keyof T;
+  className?: string;
 };
 
 type useFormOptions<T> = {
@@ -16,6 +19,26 @@ type useFormOptions<T> = {
     success: () => void;
   };
 };
+
+const Form = styled.form`
+  .field {
+    margin: 8px 0;
+  }
+`;
+const Label = styled.label`
+  display: flex;
+  line-height: 32px;
+  .label-text {
+    white-space: nowrap;
+    margin-right: 1em;
+  }
+  input {
+    height: 32px;
+  }
+  > .control {
+    width: 100%;
+  }
+`;
 
 export function useForm<T>(options: useFormOptions<T>) {
   const { initFormData, fields, buttons, submit } = options;
@@ -57,31 +80,36 @@ export function useForm<T>(options: useFormOptions<T>) {
   );
 
   const form = (
-    <form onSubmit={_onSubmit}>
+    <Form onSubmit={_onSubmit}>
       {fields.map((field) => (
-        <div key={field.key.toString()}>
-          <label>
-            {field.label}
+        <div
+          key={field.key.toString()}
+          className={classNames("field", `field-${field.key}`, field.className)}
+        >
+          <Label>
+            <span className="label-text">{field.label}</span>
             {field.type === "textarea" ? (
               <textarea
+                className="control"
                 onChange={(e) => onChange(field.key, e.target.value)}
                 value={formData[field.key].toString()}
               />
             ) : (
               <input
                 type={field.type}
+                className="control"
                 value={formData[field.key].toString()}
                 onChange={(e) => onChange(field.key, e.target.value)}
               />
             )}
-          </label>
+          </Label>
           {errors[field.key]?.length > 0 && (
             <div>{errors[field.key].join(",")}</div>
           )}
         </div>
       ))}
       <div>{buttons}</div>
-    </form>
+    </Form>
   );
   return {
     form: form,
