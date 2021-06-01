@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import axios from "axios";
-import { useForm } from "lib/hooks/useForm";
+import { useForm } from "hooks/useForm";
 
 const PostsNew: NextPage = () => {
   const { form } = useForm({

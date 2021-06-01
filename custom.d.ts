@@ -4,3 +4,6 @@ type Post = {
   title: string;
   content: string;
 };
+type User = {
+  id: string;
+};
