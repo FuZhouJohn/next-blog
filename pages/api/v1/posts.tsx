@@ -12,6 +12,10 @@ const Posts: NextApiHandler = async (req, res) => {
         return;
       }
       const { title, content } = req.body;
+      if (title.trim() === "") {
+        res.status(422).json({ title: ["标题不能为空"] });
+        return;
+      }
       const post = new Post();
       post.title = title;
       post.content = content;

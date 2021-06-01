@@ -17,6 +17,7 @@
     "@types/marked": "^2.0.2",
     "@types/ua-parser-js": "^0.7.36",
     "axios": "^0.21.1",
+    "github-markdown-css": "^4.0.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^10.7.2",
     "lodash": "^4.17.21",
