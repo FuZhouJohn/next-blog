@@ -1,5 +1,25 @@
-body{
-  h1{
-    color: blue!important;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #8d0033;
+  border-bottom: 1px solid;
+}
+a,
+input,
+button {
+  font: inherit;
+}
+h1 {
+  margin-bottom: 8px;
+}
+p {
+  margin: 4px;
 }

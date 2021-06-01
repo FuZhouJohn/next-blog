@@ -4,6 +4,7 @@ import { getDatabaseConnection } from "lib/getDatabaseConnection";
 import { Post } from "src/entity/Post";
 import qs from "querystring";
 import { usePager } from "../../lib/hooks/usePager";
+import styled from "styled-components";
 type Props = {
   posts: Post[];
   count: number;
@@ -11,6 +12,23 @@ type Props = {
   page: number;
   totalPage: number;
 };
+
+const Posts = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+`;
+const OnePost = styled.div`
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0px;
+  > a {
+    border-bottom: none;
+    color: #000;
+    &:hover {
+      color: #8d0033;
+    }
+  }
+`;
 
 const PostsIndex: NextPage<Props> = (props) => {
   const { posts, count, totalPage, page } = props;
@@ -20,17 +38,17 @@ const PostsIndex: NextPage<Props> = (props) => {
     page,
   });
   return (
-    <div>
+    <Posts>
       <h1>文章列表</h1>
       {posts.map((p) => (
-        <div key={p.id}>
+        <OnePost key={p.id}>
           <Link href={`/posts/${p.id}`}>
             <a>{p.title}</a>
           </Link>
-        </div>
+        </OnePost>
       ))}
       <footer>{pager}</footer>
-    </div>
+    </Posts>
   );
 };
 export default PostsIndex;

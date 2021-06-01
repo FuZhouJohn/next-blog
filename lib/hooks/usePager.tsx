@@ -10,16 +10,12 @@ type Options = {
 };
 
 const Wrapper = styled.div`
-  margin-top: 20px;
+  margin: 0 -8px;
+  padding: 8px 0;
 `;
 
 const PageNumbersWrapper = styled.span`
-  & + & {
-    margin-left: 10px;
-  }
-  a {
-    text-decoration: none;
-  }
+  margin: 0 8px;
   &.active {
     font-weight: bold;
   }
@@ -47,45 +43,44 @@ export const usePager = (options: Options) => {
       []
     );
 
-  const pager = (
-    <Wrapper>
-      {page !== 1 && (
-        <PageNumbersWrapper>
-          <Link href={urlMaker(page - 1)}>
-            <a>&lt;</a>
-          </Link>
-        </PageNumbersWrapper>
-      )}
-      {pageNumbers.map((n) =>
-        n === -1 ? (
-          <PageNumbersWrapper key={n}>
-            <span>...</span>
-          </PageNumbersWrapper>
-        ) : n === page ? (
-          <PageNumbersWrapper className="active" key={n}>
-            <span>{n}</span>
-          </PageNumbersWrapper>
-        ) : (
-          <PageNumbersWrapper key={n}>
-            <Link href={urlMaker(n)} key={n}>
-              <a>{n}</a>
+  const pager =
+    totalPage > 1 ? (
+      <Wrapper>
+        {page !== 1 && (
+          <PageNumbersWrapper>
+            <Link href={urlMaker(page - 1)}>
+              <a>&lt;</a>
             </Link>
           </PageNumbersWrapper>
-        )
-      )}
-      {page < totalPage && (
+        )}
+        {pageNumbers.map((n) =>
+          n === -1 ? (
+            <PageNumbersWrapper key={n}>...</PageNumbersWrapper>
+          ) : n === page ? (
+            <PageNumbersWrapper className="active" key={n}>
+              {n}
+            </PageNumbersWrapper>
+          ) : (
+            <PageNumbersWrapper key={n}>
+              <Link href={urlMaker(n)} key={n}>
+                <a>{n}</a>
+              </Link>
+            </PageNumbersWrapper>
+          )
+        )}
+        {page < totalPage && (
+          <PageNumbersWrapper>
+            {" "}
+            <Link href={urlMaker(page + 1)}>
+              <a>&gt;</a>
+            </Link>
+          </PageNumbersWrapper>
+        )}
         <PageNumbersWrapper>
-          {" "}
-          <Link href={urlMaker(page + 1)}>
-            <a>&gt;</a>
-          </Link>
+          第 {page}/{totalPage} 页
         </PageNumbersWrapper>
-      )}
-      <PageNumbersWrapper>
-        第 {page}/{totalPage} 页
-      </PageNumbersWrapper>
-    </Wrapper>
-  );
+      </Wrapper>
+    ) : null;
   return {
     pager,
   };
