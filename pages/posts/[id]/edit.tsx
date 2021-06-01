@@ -9,7 +9,7 @@ type Props = {
 };
 
 const PostsEdit: NextPage<Props> = (props) => {
-  const { post } = props;
+  const { post, id } = props;
   const { form } = useForm({
     initFormData: { title: post.title, content: post.content },
     fields: [
@@ -22,7 +22,7 @@ const PostsEdit: NextPage<Props> = (props) => {
       </div>
     ),
     submit: {
-      request: (formData) => axios.post("/api/v1/posts", formData),
+      request: (formData) => axios.patch(`/api/v1/posts/${id}`, formData),
       success: () => {
         window.alert("提交成功");
         window.location.href = "/posts";
