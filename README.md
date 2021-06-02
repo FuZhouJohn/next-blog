@@ -64,4 +64,6 @@ docker run --network host -d zhuang/node-web-app
 
 ```bash
 ssh -oPort=6000 blog@dev1 "sh /home/blog/app/bin/deploy.sh"
+
+ssh -oPort=6000 blog@dev1 'bash -s' < bin/deploy.sh
 ```
