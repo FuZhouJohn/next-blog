@@ -3,8 +3,12 @@
 ### 运行容器
 
 ```bash
+# 开发环境
 mkdir blog-data
 docker run -v "${PWD}/blog-data:/var/lib/postgresql/data" -p 5432:5432 -e POSTGRES_USER=blog -e POSTGRES_HOST_AUTH_METHOD=trust -d postgres:12.2
+# 线上环境
+mkdir ~/blog-data
+docker run --network host -v "/home/blog/blog-data:/var/lib/postgresql/data" -e POSTGRES_USER=blog -e POSTGRES_HOST_AUTH_METHOD=trust -e PGPORT=5433 -d postgres:12.2
 ```
 ### 新建数据库
 
@@ -45,4 +49,13 @@ yarn dev
 ```bash
 yarn build
 yarn start
+```
+
+## 部署
+
+```bash
+yarn install --production=false
+yarn build
+docker build . -t zhuang/node-web-app
+docker run --network host -d zhuang/node-web-app
 ```
