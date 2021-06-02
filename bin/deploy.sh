@@ -2,7 +2,7 @@
 export http_proxy="http://127.0.0.1:7890"
 export https_proxy=$http_proxy
 export no_proxy="localhost,127.0.0.1,192.168.100.0/24,192.168.110.0/24,localaddress,.localdomain.com"
-echo -e "Proxy Off"
+echo "Proxy Off"
 docker start 1dc5ef2e225f &&
 cd /home/blog/app/ &&
 git pull &&
