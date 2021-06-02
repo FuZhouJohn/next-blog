@@ -67,3 +67,10 @@ ssh -oPort=6000 blog@dev1 "sh /home/blog/app/bin/deploy.sh"
 
 ssh -oPort=6000 blog@dev1 'bash -s' < bin/deploy.sh
 ```
+
+## Nginx
+
+```bash
+docker run --network host --name nginx1 -d nginx:1.21.0
+docker run --network host --name nginx1 -v /home/blog/nginx.conf:/etc/nginx/conf.d/default.conf -v /home/blog/app/.next/static/:/usr/share/nginx/html/_next/static/ -d nginx:1.21.0
+```

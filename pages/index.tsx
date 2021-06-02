@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   return (
     <Cover>
       <img src="/logo.png" alt="" />
-      <h1>测试博客</h1>
+      <h1>ZJN 的博客</h1>
       <p>装逼的文字 8.0</p>
       <p>
         <Link href="/posts">
