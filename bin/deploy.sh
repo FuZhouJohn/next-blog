@@ -1,7 +1,7 @@
 #!/bin/sh
-export http_proxy="http://127.0.0.1:7890"
-export https_proxy=$http_proxy
-export no_proxy="localhost,127.0.0.1,192.168.100.0/24,192.168.110.0/24,localaddress,.localdomain.com"
+export http_proxy="http://127.0.0.1:7890";
+export https_proxy=$http_proxy;
+export no_proxy="localhost,127.0.0.1,192.168.100.0/24,192.168.110.0/24,localaddress,.localdomain.com";
 docker start 1dc5ef2e225f &&
 cd /home/blog/app/ &&
 git pull &&
@@ -12,7 +12,7 @@ yarn typeorm:build &&
 yarn m:run &&
 git reset --hard HEAD &&
 docker build . -t zhuang/node-web-app &&
-docker kill blog-app
-docker rm blog-app &&
+docker kill blog-app;
+docker rm blog-app;
 docker run --name blog-app --network host -d zhuang/node-web-app &&
 echo 'OK!'
