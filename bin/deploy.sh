@@ -1,5 +1,4 @@
 docker start 1dc5ef2e225f &&
-proxy_on &&
 cd /home/blog/app/ &&
 git pull &&
 yarn install --production=false &&
