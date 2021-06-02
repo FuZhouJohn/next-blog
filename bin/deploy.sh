@@ -5,6 +5,7 @@ git pull &&
 yarn install --production=false &&
 yarn build &&
 git apply migrate.patch &&
+yarn typeorm:build &&
 yarn m:run &&
 git reset --hard HEAD &&
 docker build . -t zhuang/node-web-app &&
