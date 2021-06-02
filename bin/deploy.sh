@@ -1,6 +1,4 @@
 #!/bin/sh
-source ~/.bashrc &&
-proxy_on &&
 docker start 1dc5ef2e225f &&
 cd /home/blog/app/ &&
 git pull &&
