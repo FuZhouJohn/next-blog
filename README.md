@@ -59,3 +59,9 @@ yarn build
 docker build . -t zhuang/node-web-app
 docker run --network host -d zhuang/node-web-app
 ```
+
+## 远程部署
+
+```bash
+ssh -oPort=6000 blog@dev1 "sh /home/blog/app/bin/deploy.sh"
+```
