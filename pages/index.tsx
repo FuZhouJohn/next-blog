@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     <Cover>
       <img src="/logo.png" alt="" />
       <h1>测试博客</h1>
-      <p>装逼的文字 4.0</p>
+      <p>装逼的文字 5.0</p>
       <p>
         <Link href="/posts">
           <a>文章列表</a>
