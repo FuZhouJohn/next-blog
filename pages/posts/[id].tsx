@@ -38,7 +38,7 @@ const PostShow: NextPage<Props> = (props) => {
       <div className="wrapper">
         <header>
           <h1 className="title">{post.title}</h1>
-          {currentUser && (
+          {currentUser && currentUser.id === post.author.id && (
             <p className="action">
               <Link href="/posts/[id]/edit" as={`/posts/${post.id}/edit`}>
                 <a>编辑文章</a>
@@ -82,7 +82,9 @@ export const getServerSideProps: GetServerSideProps<any, { id: string }> =
   withSession(async (context: GetServerSidePropsContext) => {
     const { id } = context.params;
     const connection = await getDatabaseConnection();
-    const post = await connection.manager.findOne("Post", id);
+    const post = await connection.manager.findOne("Post", id, {
+      relations: ["author"],
+    });
     const currentUser = (context.req as any).session.get("currentUser") || null;
     return {
       props: {

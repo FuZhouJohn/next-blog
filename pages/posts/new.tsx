@@ -1,8 +1,10 @@
 import { NextPage } from "next";
 import axios from "axios";
 import { useForm } from "hooks/useForm";
+import { useRouter } from "next/router";
 
 const PostsNew: NextPage = () => {
+  const router = useRouter();
   const { form } = useForm({
     initFormData: { title: "", content: "" },
     fields: [
@@ -16,9 +18,9 @@ const PostsNew: NextPage = () => {
     ),
     submit: {
       request: (formData) => axios.post("/api/v1/posts", formData),
-      success: () => {
+      success: async () => {
         window.alert("提交成功");
-        window.location.href = "/posts";
+        await router.push("/posts");
       },
     },
   });

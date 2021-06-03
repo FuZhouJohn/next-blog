@@ -5,5 +5,5 @@ type Post = {
   content: string;
 };
 type User = {
-  id: string;
+  id: number;
 };

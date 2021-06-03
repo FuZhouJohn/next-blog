@@ -1,0 +1,17 @@
+.action {
+    text-align: center;
+}
+
+.tip {
+    text-align: center;
+}
+
+.form-wrapper{
+    max-width: 800px;
+    margin: 16px auto;
+}
+
+.form-wrapper h1 {
+    text-align: center;
+}
+
