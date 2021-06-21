@@ -12,7 +12,7 @@ yarn typeorm:build &&
 yarn m:run &&
 git reset --hard HEAD &&
 docker build . -t zhuang/node-web-app &&
-docker kill blog-app;
-docker rm blog-app;
-docker run --name blog-app --network host -d zhuang/node-web-app &&
+docker kill blog_app;
+docker rm blog_app;
+docker run --name blog_app --network host -d zhuang/node-web-app &&
 echo 'OK!'
